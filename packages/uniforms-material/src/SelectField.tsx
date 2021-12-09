@@ -1,14 +1,14 @@
-import { useTheme } from '@material-ui/core';
-import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormLabel from '@material-ui/core/FormLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import { SelectProps as MaterialSelectProps } from '@material-ui/core/Select';
-import Switch, { SwitchProps } from '@material-ui/core/Switch';
-import TextField, { TextFieldProps } from '@material-ui/core/TextField';
+import { useThemeProps } from '@mui/system';
+import Checkbox, { CheckboxProps } from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import FormLabel from '@mui/material/FormLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import { SelectProps as MaterialSelectProps } from '@mui/material/Select';
+import Switch, { SwitchProps } from '@mui/material/Switch';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import omit from 'lodash/omit';
 import xor from 'lodash/xor';
 import React, { Ref } from 'react';
@@ -56,8 +56,10 @@ const escape = (x: string) => base64(encodeURIComponent(x)).replace(/=+$/, '');
 
 // eslint-disable-next-line complexity
 function Select(props: SelectFieldProps) {
-  const theme = useTheme();
-  const formControlThemeProps = theme.props?.MuiFormControl;
+  const formControlThemeProps = useThemeProps({
+    props,
+    name: 'MuiFormControl'
+  });
   const value = props.value ?? '';
 
   if (props.checkboxes) {
@@ -72,7 +74,7 @@ function Select(props: SelectFieldProps) {
       name,
       onChange,
       readOnly,
-      transform,
+      transform
     } = props;
 
     const appearance = props.appearance ?? 'checkbox';
@@ -81,7 +83,7 @@ function Select(props: SelectFieldProps) {
       'checkboxes' as never,
       'disableItem' as never,
       'id',
-      'inputRef',
+      'inputRef'
     ]);
 
     const children =
@@ -137,10 +139,10 @@ function Select(props: SelectFieldProps) {
       (legend || label) && (
         <FormLabel component="legend">{legend || label}</FormLabel>
       ),
-      children,
+      children
     );
   }
-  const textFieldThemeProps = theme.props?.MuiTextField;
+  const textFieldThemeProps = useThemeProps({ props, name: 'MuiTextField' });
   const {
     allowedValues,
     disabled,
@@ -164,7 +166,7 @@ function Select(props: SelectFieldProps) {
     showInlineError,
     transform,
     variant,
-    textFieldProps,
+    textFieldProps
   } = props;
 
   const Item = native ? 'option' : MenuItem;
@@ -177,7 +179,7 @@ function Select(props: SelectFieldProps) {
     'helperText',
     'margin',
     'textFieldProps',
-    'variant',
+    'variant'
   ]);
 
   return (
@@ -189,7 +191,7 @@ function Select(props: SelectFieldProps) {
       InputLabelProps={{
         shrink: !!label && (hasPlaceholder || hasValue),
         ...labelProps,
-        ...InputLabelProps,
+        ...InputLabelProps
       }}
       label={label}
       margin={margin}
@@ -205,7 +207,7 @@ function Select(props: SelectFieldProps) {
         inputProps: { name, id, ...inputProps },
         multiple: fieldType === Array || undefined,
         native,
-        ...filteredProps,
+        ...filteredProps
       }}
       value={native && !value ? '' : value}
       variant={variant}

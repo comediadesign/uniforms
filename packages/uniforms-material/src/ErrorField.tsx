@@ -1,9 +1,9 @@
 import { PropTypes } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText, {
-  FormHelperTextProps,
+  FormHelperTextProps
 } from '@material-ui/core/FormHelperText';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { useThemeProps } from '@mui/system';
 import React from 'react';
 import { Override, connectField, filterDOMProps } from 'uniforms';
 
@@ -12,17 +12,10 @@ export type ErrorFieldProps = Override<
   { errorMessage?: string; fullWidth?: boolean; margin?: PropTypes.Margin }
 >;
 
-function Error({
-  children,
-  error,
-  errorMessage,
-  fullWidth,
-  margin,
-  variant,
-  ...props
-}: ErrorFieldProps) {
-  const theme = useTheme();
-  const themeProps = theme.props?.MuiFormControl;
+function Error(props: ErrorFieldProps) {
+  const { children, error, errorMessage, fullWidth, margin, variant, ...rest } =
+    props;
+  const themeProps = useThemeProps({ props, name: 'MuiFormControl' });
 
   return !error ? null : (
     <FormControl
@@ -31,7 +24,7 @@ function Error({
       margin={margin ?? themeProps?.margin ?? 'dense'}
       variant={variant ?? themeProps?.variant}
     >
-      <FormHelperText {...filterDOMProps(props)}>
+      <FormHelperText {...filterDOMProps(rest)}>
         {children || errorMessage}
       </FormHelperText>
     </FormControl>
@@ -40,5 +33,5 @@ function Error({
 
 export default connectField<ErrorFieldProps>(Error, {
   initialValue: false,
-  kind: 'leaf',
+  kind: 'leaf'
 });

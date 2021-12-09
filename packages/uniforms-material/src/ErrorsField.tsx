@@ -1,8 +1,9 @@
-import { useTheme, PropTypes } from '@material-ui/core';
+import { PropTypes } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText, {
-  FormHelperTextProps,
+  FormHelperTextProps
 } from '@material-ui/core/FormHelperText';
+import { useThemeProps } from '@mui/system';
 import React from 'react';
 import { Override, filterDOMProps, useForm } from 'uniforms';
 
@@ -15,15 +16,9 @@ export type ErrorsFieldProps = Override<
   }
 >;
 
-function ErrorsField({
-  children,
-  fullWidth,
-  margin,
-  variant,
-  ...props
-}: ErrorsFieldProps) {
-  const theme = useTheme();
-  const themeProps = theme.props?.MuiFormControl;
+function ErrorsField(props: ErrorsFieldProps) {
+  const { children, fullWidth, margin, variant, ...rest } = props;
+  const themeProps = useThemeProps({ props, name: 'MuiFormControl' });
   const { error, schema } = useForm();
 
   return !error && !children ? null : (
@@ -34,10 +29,10 @@ function ErrorsField({
       variant={variant ?? themeProps?.variant}
     >
       {!!children && (
-        <FormHelperText {...filterDOMProps(props)}>{children}</FormHelperText>
+        <FormHelperText {...filterDOMProps(rest)}>{children}</FormHelperText>
       )}
       {schema.getErrorMessages(error).map((message, index) => (
-        <FormHelperText key={index} {...filterDOMProps(props)}>
+        <FormHelperText key={index} {...filterDOMProps(rest)}>
           {message}
         </FormHelperText>
       ))}

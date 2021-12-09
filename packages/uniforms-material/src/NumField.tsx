@@ -1,5 +1,5 @@
-import { useTheme } from '@material-ui/core';
-import TextField, { TextFieldProps } from '@material-ui/core/TextField';
+import { useThemeProps } from '@mui/system';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import React from 'react';
 import { FieldProps, connectField, filterDOMProps } from 'uniforms';
 
@@ -9,28 +9,28 @@ export type NumFieldProps = FieldProps<
   { decimal?: boolean; max?: number; min?: number; step?: number }
 >;
 
-function Num({
-  decimal,
-  disabled,
-  error,
-  errorMessage,
-  helperText,
-  inputProps,
-  inputRef,
-  label,
-  max,
-  min,
-  name,
-  onChange,
-  readOnly,
-  placeholder,
-  showInlineError,
-  step = decimal ? 0.01 : 1,
-  value,
-  ...props
-}: NumFieldProps) {
-  const theme = useTheme();
-  const themeProps = theme.props?.MuiTextField;
+function Num(props: NumFieldProps) {
+  const {
+    decimal,
+    disabled,
+    error,
+    errorMessage,
+    helperText,
+    inputProps,
+    inputRef,
+    label,
+    max,
+    min,
+    name,
+    onChange,
+    readOnly,
+    placeholder,
+    showInlineError,
+    step = decimal ? 0.01 : 1,
+    value,
+    ...rest
+  } = props;
+  const themeProps = useThemeProps({ props, name: 'MuiTextField' });
 
   return (
     <TextField
@@ -44,7 +44,7 @@ function Num({
         max,
         readOnly,
         step,
-        ...inputProps,
+        ...inputProps
       }}
       label={label}
       margin={themeProps?.margin ?? 'dense'}
@@ -58,7 +58,7 @@ function Num({
       ref={inputRef}
       type="number"
       value={value ?? ''}
-      {...filterDOMProps(props)}
+      {...filterDOMProps(rest)}
     />
   );
 }

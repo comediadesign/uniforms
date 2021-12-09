@@ -1,5 +1,5 @@
-import FormControl, { FormControlProps } from '@material-ui/core/FormControl';
-import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
+import FormControl, { FormControlProps } from '@mui/material/FormControl';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import cloneDeep from 'lodash/cloneDeep';
 import React, { ReactNode } from 'react';
 import {
@@ -7,7 +7,7 @@ import {
   connectField,
   filterDOMProps,
   joinName,
-  useField,
+  useField
 } from 'uniforms';
 
 export type ListAddFieldProps = FieldProps<
@@ -63,5 +63,5 @@ function ListAdd({
 
 export default connectField<ListAddFieldProps>(ListAdd, {
   initialValue: false,
-  kind: 'leaf',
+  kind: 'leaf'
 });

@@ -1,5 +1,5 @@
-import { useTheme } from '@material-ui/core';
-import FormLabel from '@material-ui/core/FormLabel';
+import { useThemeProps } from '@mui/system';
+import FormLabel from '@mui/material/FormLabel';
 import React from 'react';
 import { connectField, HTMLFieldProps } from 'uniforms';
 
@@ -13,27 +13,22 @@ export type NestFieldProps = HTMLFieldProps<
   { helperText?: string; itemProps?: object; fullWidth?: boolean; margin?: any }
 >;
 
-function Nest({
-  children,
-  fields,
-  itemProps,
-  label,
-  ...props
-}: NestFieldProps) {
-  const theme = useTheme();
-  const formControlThemeProps = theme.props?.MuiFormControl;
+function Nest(props: NestFieldProps) {
+  const { children, fields, itemProps, label, ...rest } = props;
+  const formControlThemeProps = useThemeProps({
+    props,
+    name: 'MuiFormControl'
+  });
   return wrapField(
     {
       fullWidth: formControlThemeProps?.fullWidth ?? true,
       margin: formControlThemeProps?.margin ?? 'dense',
       ...props,
-      component: undefined,
+      component: undefined
     },
     label && <FormLabel component="legend">{label}</FormLabel>,
     children ||
-      fields.map(field => (
-        <AutoField key={field} name={field} {...itemProps} />
-      )),
+      fields.map(field => <AutoField key={field} name={field} {...itemProps} />)
   );
 }
 

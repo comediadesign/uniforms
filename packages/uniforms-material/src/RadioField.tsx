@@ -1,8 +1,8 @@
-import { PropTypes, useTheme } from '@material-ui/core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
-import RadioMaterial, { RadioProps } from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
+import { useThemeProps } from '@mui/system';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import RadioMaterial, { RadioProps } from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import omit from 'lodash/omit';
 import React from 'react';
 import { FieldProps, connectField, filterDOMProps } from 'uniforms';
@@ -17,35 +17,38 @@ export type RadioFieldProps = FieldProps<
     checkboxes?: boolean;
     fullWidth?: boolean;
     helperText?: string;
-    margin?: PropTypes.Margin;
+    margin?: string | number;
     row?: boolean;
     transform?: (value: string) => string;
   }
 >;
 
-function Radio({
-  allowedValues,
-  disabled,
-  id,
-  inputRef,
-  label,
-  name,
-  onChange,
-  readOnly,
-  row,
-  transform,
-  value,
-  ...props
-}: RadioFieldProps) {
-  const theme = useTheme();
-  const formControlThemeProps = theme.props?.MuiFormControl;
+function Radio(props: RadioFieldProps) {
+  const {
+    allowedValues,
+    disabled,
+    id,
+    inputRef,
+    label,
+    name,
+    onChange,
+    readOnly,
+    row,
+    transform,
+    value,
+    ...rest
+  } = props;
+  const formControlThemeProps = useThemeProps({
+    props,
+    name: 'MuiFormControl'
+  });
   return wrapField(
     {
       fullWidth: formControlThemeProps?.fullWidth ?? true,
       margin: formControlThemeProps?.margin ?? 'dense',
       ...props,
       component: 'fieldset',
-      disabled,
+      disabled
     },
     label && (
       <FormLabel component="legend" htmlFor={name}>
@@ -74,7 +77,7 @@ function Radio({
           value={`${item}`}
         />
       ))}
-    </RadioGroup>,
+    </RadioGroup>
   );
 }
 

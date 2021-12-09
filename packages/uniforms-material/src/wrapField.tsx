@@ -1,5 +1,5 @@
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 import React, { ReactNode, createElement } from 'react';
 
 export default function wrapField(
@@ -14,7 +14,7 @@ export default function wrapField(
     readOnly,
     required,
     showInlineError,
-    variant,
+    variant
   }: any,
   ...children: ReactNode[]
 ) {
@@ -27,13 +27,13 @@ export default function wrapField(
     margin,
     readOnly,
     required,
-    variant,
+    variant
   };
 
   return createElement(
     FormControl,
     props,
     ...children,
-    !!formHelperText && <FormHelperText>{formHelperText}</FormHelperText>,
+    !!formHelperText && <FormHelperText>{formHelperText}</FormHelperText>
   );
 }

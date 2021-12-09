@@ -1,10 +1,10 @@
-import ListMaterial, { ListProps } from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
+import ListMaterial, { ListProps } from '@mui/material/List';
+import ListSubheader from '@mui/material/ListSubheader';
 import React, {
   Children,
   ReactNode,
   cloneElement,
-  isValidElement,
+  isValidElement
 } from 'react';
 import { FieldProps, connectField, filterDOMProps } from 'uniforms';
 
@@ -43,10 +43,10 @@ function List({
               ? cloneElement(child, {
                   key: `${itemIndex}-${childIndex}`,
                   name: child.props.name?.replace('$', '' + itemIndex),
-                  ...itemProps,
+                  ...itemProps
                 })
-              : child,
-          ),
+              : child
+          )
         )}
       </ListMaterial>
       <ListAddField icon={addIcon} initialCount={initialCount} name="$" />

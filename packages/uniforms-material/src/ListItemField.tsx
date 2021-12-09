@@ -1,4 +1,4 @@
-import ListItemMaterial, { ListItemProps } from '@material-ui/core/ListItem';
+import ListItemMaterial, { ListItemProps } from '@mui/material/ListItem';
 import React, { ReactNode } from 'react';
 import { connectField } from 'uniforms';
 
@@ -19,7 +19,7 @@ function ListItem({
   dense = true,
   disableGutters,
   divider,
-  removeIcon,
+  removeIcon
 }: ListItemFieldProps) {
   return (
     <ListItemMaterial
@@ -34,5 +34,5 @@ function ListItem({
 }
 
 export default connectField<ListItemFieldProps>(ListItem, {
-  initialValue: false,
+  initialValue: false
 });

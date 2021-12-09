@@ -1,30 +1,30 @@
-import { useTheme } from '@material-ui/core';
+import { useThemeProps } from '@mui/system';
 import TextField, {
-  TextFieldProps as MUITextFieldProps,
-} from '@material-ui/core/TextField';
+  TextFieldProps as MUITextFieldProps
+} from '@mui/material/TextField';
 import React from 'react';
 import { FieldProps, connectField, filterDOMProps } from 'uniforms';
 
 export type TextFieldProps = FieldProps<string, MUITextFieldProps>;
 
-function Text({
-  disabled,
-  error,
-  errorMessage,
-  helperText,
-  inputRef,
-  label,
-  name,
-  onChange,
-  placeholder,
-  readOnly,
-  showInlineError,
-  type = 'text',
-  value = '',
-  ...props
-}: TextFieldProps) {
-  const theme = useTheme();
-  const themeProps = theme.props?.MuiTextField;
+function Text(props: TextFieldProps) {
+  const {
+    disabled,
+    error,
+    errorMessage,
+    helperText,
+    inputRef,
+    label,
+    name,
+    onChange,
+    placeholder,
+    readOnly,
+    showInlineError,
+    type = 'text',
+    value = '',
+    ...rest
+  } = props;
+  const themeProps = useThemeProps({ props, name: 'MuiTextField' });
 
   return (
     <TextField
@@ -41,7 +41,7 @@ function Text({
       ref={inputRef}
       type={type}
       value={value}
-      {...filterDOMProps(props)}
+      {...filterDOMProps(rest)}
     />
   );
 }

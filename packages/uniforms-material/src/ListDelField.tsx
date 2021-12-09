@@ -1,11 +1,11 @@
-import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import React, { ReactNode } from 'react';
 import {
   FieldProps,
   connectField,
   filterDOMProps,
   joinName,
-  useField,
+  useField
 } from 'uniforms';
 
 export type ListDelFieldProps = FieldProps<
@@ -27,7 +27,7 @@ function ListDel({
   const parent = useField<{ minCount?: number }, unknown[]>(
     parentName,
     {},
-    { absoluteName: true },
+    { absoluteName: true }
   )[0];
 
   const limitNotReached =
@@ -52,5 +52,5 @@ function ListDel({
 
 export default connectField<ListDelFieldProps>(ListDel, {
   initialValue: false,
-  kind: 'leaf',
+  kind: 'leaf'
 });

@@ -1,5 +1,5 @@
-import { useTheme } from '@material-ui/core';
-import TextField, { TextFieldProps } from '@material-ui/core/TextField';
+import { useThemeProps } from '@mui/system';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import React from 'react';
 import { FieldProps, connectField, filterDOMProps } from 'uniforms';
 
@@ -21,25 +21,25 @@ export type DateFieldProps = FieldProps<
   { labelProps?: object }
 >;
 
-function Date({
-  disabled,
-  error,
-  errorMessage,
-  helperText,
-  InputLabelProps,
-  inputRef,
-  label,
-  labelProps,
-  name,
-  onChange,
-  placeholder,
-  readOnly,
-  showInlineError,
-  value,
-  ...props
-}: DateFieldProps) {
-  const theme = useTheme();
-  const themeProps = theme.props?.MuiTextField;
+function Date(props: DateFieldProps) {
+  const {
+    disabled,
+    error,
+    errorMessage,
+    helperText,
+    InputLabelProps,
+    inputRef,
+    label,
+    labelProps,
+    name,
+    onChange,
+    placeholder,
+    readOnly,
+    showInlineError,
+    value,
+    ...rest
+  } = props;
+  const themeProps = useThemeProps({ props, name: 'MuiTextField' });
 
   return (
     <TextField
@@ -60,7 +60,7 @@ function Date({
       ref={inputRef}
       type="datetime-local"
       value={dateFormat(value) ?? ''}
-      {...filterDOMProps(props)}
+      {...filterDOMProps(rest)}
     />
   );
 }

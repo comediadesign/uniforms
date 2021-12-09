@@ -1,10 +1,9 @@
-import type { PropTypes } from '@material-ui/core';
-import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormLabel from '@material-ui/core/FormLabel';
-import Switch, { SwitchProps } from '@material-ui/core/Switch';
-import useTheme from '@material-ui/core/styles/useTheme';
+import Checkbox, { CheckboxProps } from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import FormLabel from '@mui/material/FormLabel';
+import Switch, { SwitchProps } from '@mui/material/Switch';
+import { useThemeProps } from '@mui/system';
 import omit from 'lodash/omit';
 import React, { Ref } from 'react';
 import { FieldProps, connectField, filterDOMProps } from 'uniforms';
@@ -15,11 +14,12 @@ export type BoolFieldProps = FieldProps<
   boolean,
   CheckboxProps | SwitchProps,
   {
+    label: string;
     appearance?: 'checkbox' | 'switch';
     fullWidth?: boolean;
     helperText?: string;
     legend?: string;
-    margin?: PropTypes.Margin;
+    margin?: string | number;
     transform?: (label: string) => string;
   }
 >;
@@ -35,21 +35,23 @@ function Bool(props: BoolFieldProps) {
     onChange,
     readOnly,
     transform,
-    value,
+    value
   } = props;
-  const theme = useTheme();
-  const formControlThemeProps = theme.props?.MuiFormControl;
+  const formControlThemeProps = useThemeProps({
+    props,
+    name: 'MuiFormControl'
+  });
   const SelectionControl =
     appearance === 'checkbox' || appearance === undefined ? Checkbox : Switch;
 
   return wrapField(
     {
       ...(formControlThemeProps?.fullWidth === undefined && {
-        fullWidth: true,
+        fullWidth: true
       }),
       ...(formControlThemeProps?.margin === undefined && { margin: 'dense' }),
       ...props,
-      component: 'fieldset',
+      component: 'fieldset'
     },
     legend && (
       <FormLabel component="legend" htmlFor={name}>
@@ -75,7 +77,7 @@ function Bool(props: BoolFieldProps) {
         }
         label={transform ? transform(label as string) : label}
       />
-    </FormGroup>,
+    </FormGroup>
   );
 }
 

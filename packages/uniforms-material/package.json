@@ -28,7 +28,10 @@
     "src/*.tsx"
   ],
   "peerDependencies": {
-    "@material-ui/core": "^4.0.0",
+    "@mui/material": "^5.1.0",
+    "@mui/styles": "^5.1.0",
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
     "react": "^17.0.0 || ^16.8.0"
   },
   "dependencies": {
